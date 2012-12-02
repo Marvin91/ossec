@@ -1,0 +1,4 @@
+DIR="/Users/jandre/.ossec"
+CC=gcc
+GCC=gcc
+CLANG=clang
