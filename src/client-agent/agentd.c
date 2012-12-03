@@ -25,7 +25,7 @@
 /* AgentdStart v0.2, 2005/11/09
  * Starts the agent daemon.
  */
-void AgentdStart(char *dir, int uid, int gid, char *user, char *group)
+void AgentdStart(char *dir, int uid, int gid, char *user, char *group, int run_foreground)
 {
     int rc = 0;
     int pid = 0;
@@ -39,9 +39,13 @@ void AgentdStart(char *dir, int uid, int gid, char *user, char *group)
     /* Going daemon */
     pid = getpid();
     available_server = 0;
-    nowDaemon();
-    goDaemon();
 
+    if (!run_foreground) {
+
+        nowDaemon();
+        goDaemon();
+
+    }
 
     /* Setting group ID */
     if(Privsep_SetGroup(gid) < 0)

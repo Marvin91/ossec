@@ -36,10 +36,12 @@ int main(int argc, char **argv)
 {
     int c = 0;
     int test_config = 0;
+    int run_foreground = 0;
 
     char *dir = DEFAULTDIR;
     char *user = USER;
     char *group = GROUPGLOBAL;
+    char *config = DEFAULTCPATH;
 
     int uid = 0;
     int gid = 0;
@@ -49,10 +51,18 @@ int main(int argc, char **argv)
     OS_SetName(ARGV0);
 
 
-    while((c = getopt(argc, argv, "Vtdhu:g:D:")) != -1){
+    while((c = getopt(argc, argv, "Vtdhu:g:D:c:f")) != -1){
         switch(c){
             case 'V':
                 print_version();
+                break;
+            case 'f':
+                run_foreground = 1;
+                break;
+            case 'c':
+                if(!optarg)
+                    ErrorExit("%s: -u needs an argument",ARGV0);
+                config = optarg;
                 break;
             case 'h':
                 help(ARGV0);
@@ -91,7 +101,7 @@ int main(int argc, char **argv)
 
 
     /* Reading config */
-    if(ClientConf(DEFAULTCPATH) < 0)
+    if(ClientConf(config) < 0)
     {
         ErrorExit(CLIENT_ERROR,ARGV0);
     }
@@ -130,7 +140,7 @@ int main(int argc, char **argv)
 
 
     /* Agentd Start */
-    AgentdStart(dir, uid, gid, user, group);
+    AgentdStart(dir, uid, gid, user, group, run_foreground);
 
 
     return(0);
