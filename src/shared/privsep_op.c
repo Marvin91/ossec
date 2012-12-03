@@ -23,7 +23,7 @@
 #include <grp.h>
 #include <sys/types.h>
 #include <unistd.h>
-
+#include <limits.h>
 #include "headers/os_err.h"
 
 int Privsep_GetUser(char * name)
@@ -87,11 +87,23 @@ int Privsep_SetGroup(gid_t gid)
 
 int Privsep_Chroot(char * path)
 {
-    if(chdir(path) < 0)
-        return(OS_INVALID);
 
-    if(chroot(path) < 0)
+    char resolved_path[PATH_MAX + 1];
+    char * resolved = realpath(path, resolved_path);
+
+    if (resolved != NULL) {
+        path = &resolved_path[0];
+        path[PATH_MAX] = '\0';
+    }
+
+    if(chdir(path) < 0) {
         return(OS_INVALID);
+    }
+
+    if(chroot(path) < 0) {
+    
+        return(OS_INVALID);
+    }
 
     chdir("/");
 
