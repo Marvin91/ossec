@@ -1,0 +1,1 @@
+CFLAGS="-DMAILUSER=snorby-cloud-agent -DUSER=snorby-cloud-agent -DREMUSER=snorby-cloud-agent -DGROUPGLOBAL=snorby-cloud-agent" PATH=/usr/local/Cellar/gcc/4.7.2/bin/:$PATH make all && make build && cp -r ../bin/* snorby-cloud-hids/bin

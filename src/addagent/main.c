@@ -85,7 +85,7 @@ int main(int argc, char **argv)
     OS_SetName(ARGV0);
 
 
-    while((c = getopt(argc, argv, "Vhle:i:f:")) != -1){
+    while((c = getopt(argc, argv, "Vhle:i:f:g:")) != -1){
         switch(c){
 	        case 'V':
 		        print_version();
@@ -124,6 +124,13 @@ int main(int argc, char **argv)
             case 'l':
                 cmdlist = 1;
                 break;
+       
+            case 'g':
+                if(!optarg)
+                    ErrorExit("%s: -g needs an argument",ARGV0);
+                group = optarg;
+                break;		
+
             default:
                 helpmsg();
                 break;
@@ -138,19 +145,18 @@ int main(int argc, char **argv)
     restart_necessary = 0;
 
 
-    #ifndef WIN32
+    #ifndef WIN32 
     /* Getting the group name */
     gid = Privsep_GetGroup(group);
     if(gid < 0)
     {
-	    ErrorExit(USER_ERROR, ARGV0, "", group);
+      ErrorExit(USER_ERROR, ARGV0, "", group);
     }
 
-
-    /* Setting the group */
+    /* [> Setting the group <] */
     if(Privsep_SetGroup(gid) < 0)
     {
-	    ErrorExit(SETGID_ERROR, ARGV0, group);
+      ErrorExit(SETGID_ERROR, ARGV0, group);
     }
 
 

@@ -1,6 +1,5 @@
 <ossec_config>
   <client>
-    <server-hostname>jen-homebox.snorby.org</server-hostname>
   </client>
 
   <syscheck>
@@ -42,12 +41,12 @@
   </syscheck>
 
   <rootcheck>
-    <rootkit_files>/Users/jandre/.ossec/etc/shared/rootkit_files.txt</rootkit_files>
-    <rootkit_trojans>/Users/jandre/.ossec/etc/shared/rootkit_trojans.txt</rootkit_trojans>
-    <system_audit>/Users/jandre/.ossec/etc/shared/system_audit_rcl.txt</system_audit>
-    <system_audit>/Users/jandre/.ossec/etc/shared/cis_debian_linux_rcl.txt</system_audit>
-    <system_audit>/Users/jandre/.ossec/etc/shared/cis_rhel_linux_rcl.txt</system_audit>
-    <system_audit>/Users/jandre/.ossec/etc/shared/cis_rhel5_linux_rcl.txt</system_audit>
+    <rootkit_files>ossec/etc/shared/rootkit_files.txt</rootkit_files>
+    <rootkit_trojans>ossec/etc/shared/rootkit_trojans.txt</rootkit_trojans>
+    <system_audit>ossec/etc/shared/system_audit_rcl.txt</system_audit>
+    <system_audit>ossec/etc/shared/cis_debian_linux_rcl.txt</system_audit>
+    <system_audit>ossec/etc/shared/cis_rhel_linux_rcl.txt</system_audit>
+    <system_audit>ossec/etc/shared/cis_rhel5_linux_rcl.txt</system_audit>
   </rootcheck>
 
   <active-response>

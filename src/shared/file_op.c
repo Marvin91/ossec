@@ -254,12 +254,18 @@ int CreatePID(char *name, int pid)
 
     if(isChroot())
     {
-        snprintf(file,255,"%s/%s-%d.pid",OS_PIDFILE,name,pid);
+        snprintf(file,255,"%s/%s.pid",OS_PIDFILE,name);
     }
     else
     {
-        snprintf(file,255,"%s%s/%s-%d.pid",DEFAULTDIR,
-                OS_PIDFILE,name,pid);
+        snprintf(file,255,"%s%s/%s.pid",DEFAULTDIR,
+                OS_PIDFILE,name);
+    }
+
+    if (fp = fopen(file, "r"))
+    {
+        fclose(fp);
+        DeletePID(name);
     }
 
     fp = fopen(file,"a");
@@ -281,12 +287,12 @@ int DeletePID(char *name)
 
     if(isChroot())
     {
-        snprintf(file,255,"%s/%s-%d.pid",OS_PIDFILE,name,(int)getpid());
+        snprintf(file,255,"%s/%s.pid",OS_PIDFILE,name);
     }
     else
     {
-        snprintf(file,255,"%s%s/%s-%d.pid",DEFAULTDIR,
-                OS_PIDFILE,name,(int)getpid());
+        snprintf(file,255,"%s%s/%s.pid",DEFAULTDIR,
+                OS_PIDFILE,name);
     }
 
     if(File_DateofChange(file) < 0)
