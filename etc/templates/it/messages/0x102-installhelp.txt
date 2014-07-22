@@ -1,7 +1,7 @@
   - Hai tre tipi di installazione possibili: server, agent o local.
 
     - Se scegli 'server', sarai in grado di analizzare tutti i logs, 
-      creare e-mail di notifica e risopsta, e ricevere i logs da 
+      creare e-mail di notifica e risposta, e ricevere i logs da 
       server syslog remoti e dai sistemi che eseguono gli 'agents' 
       (da dove il traffico viene inviato crittografato al server).
 
